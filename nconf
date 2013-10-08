@@ -1,4 +1,4 @@
-- Single instance: third-party modules cannot use it.
+- Single instance: third-party modules cannot use it (shouldn't)
 - It reads the entire process.env object: it pollutes the object with keys that
 		you don't need.
 - It forces you to use the "optimist" module to parse the cli options.
