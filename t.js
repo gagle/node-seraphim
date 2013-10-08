@@ -22,23 +22,23 @@ vault.on ("error", function (error){
 	console.log (error);
 });
 
-vault.on ("end", function (){
+vault.on ("load", function (){
 	console.log (this.get ());
 });
 		
 vault
-		.use ({ a: { b: 1 } })
-		.use (function (cb){
+		.load ({ a: { b: 1 } })
+		.load (function (cb){
 			process.nextTick (function (){
 				cb (null, { a: { b: 2 } });
 			});
 		})
-		.use (function (){
+		.load (function (){
 			return { a: { b: 3 } };
 		})
-		.use ("a.json")
-		.use ("b.properties")
-		.use (function (){
+		.load ("a.json")
+		.load ("b.properties")
+		.load (function (){
 			var a = vault.get ("a");
 			a.b = argv.b !== undefined ? argv.b : a.b;
 			a.c = argv.c !== undefined ? argv.c : a.c;
