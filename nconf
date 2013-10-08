@@ -1,0 +1,8 @@
+- Single instance: third-party modules cannot use it.
+- It reads the entire process.env object: it pollutes the object with keys that
+		you don't need.
+- It forces you to use the "optimist" module to parse the cli options.
+- Cannot relocate the argv options, they are always in the first deep level.
+- It reads the files synchronously.
+- Can only parse .json files.
+- Unmaintained.

@@ -1,0 +1,20 @@
+{
+	"name": "seraphim",
+	"version": "0.0.0",
+	"description": "Your personal configuration guard",
+	"keywords": ["configuration", "file", "environment", "cli"],
+	"author": "Gabriel Llamas <gagle@outlook.com>",
+	"repository": "git://github.com/gagle/node-seraphim.git",
+	"engines": {
+		"node": ">=0.10"
+	},
+	"dependencies": {
+		"deferred-queue": "*"
+	},
+	"devDependencies": {
+		"argp": "*",
+		"properties": "*"
+	},
+	"license": "MIT",
+	"main": "lib"
+}
