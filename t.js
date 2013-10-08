@@ -14,6 +14,7 @@ var optionsProperties = {
 };
 		
 var vault = seraphim.createVault ();
+
 vault.extension (".properties", function (p, cb){
 	properties.parse (p, optionsProperties, cb)
 });
@@ -22,7 +23,7 @@ vault.on ("error", function (error){
 	console.log (error);
 });
 
-vault.on ("load", function (){
+vault.on ("end", function (){
 	console.log (this.get ());
 });
 		
