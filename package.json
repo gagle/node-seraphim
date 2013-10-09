@@ -1,7 +1,7 @@
 {
 	"name": "seraphim",
-	"version": "0.0.0",
-	"description": "Your personal configuration guard",
+	"version": "0.0.1",
+	"description": "Configuration loader",
 	"keywords": ["configuration", "file", "environment", "cli"],
 	"author": "Gabriel Llamas <gagle@outlook.com>",
 	"repository": "git://github.com/gagle/node-seraphim.git",
