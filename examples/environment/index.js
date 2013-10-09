@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === "production"){
 	file = "development.json";
 }
 
-var vault = seraphim.createVault ()
+seraphim.createVault ()
 		.on ("error", function (error){
 			console.error (error);
 		})
