@@ -124,7 +124,7 @@ var tests = {
 					assert.ok (!o);
 				});
 	},
-	"error on onLoad callback error": function (cb){
+	"error on onLoad callback": function (cb){
 		var vault = seraphim.createVault ();
 		
 		vault
