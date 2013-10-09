@@ -1,0 +1,10 @@
+{
+	"web": {
+		"hostname": "1.2.3.4",
+		"port": 1234,
+		"log": {
+			"type": "circular",
+			"backup": "1week"
+		}
+	}
+}

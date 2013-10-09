@@ -47,19 +47,20 @@ var tests = {
 				.load (function (){
 					return { a: { b: 3 }, y: 1 };
 				})
+				//Synchronous function using the callback
+				.load (function (cb){
+					cb (null, { a: { b: 4 }, z: 1 });
+				})
 				//Asynchronous function inside the onLoad callback
-				.load ({ a: { b: 4 }}, function (o, cb){
+				.load ({ a: { b: 5 }}, function (o, cb){
 					assert.deepEqual (o, {
 						a: {
-							b: 4
+							b: 5
 						}
 					});
 					
+					this.merge (o);
 					process.nextTick (cb);
-				})
-				//Synchronous function using the callback
-				.load (function (cb){
-					cb (null, { a: { b: 5 }, z: 1 });
 				})
 				//json file
 				.load ("a.json", function (o){
