@@ -48,7 +48,7 @@ seraphim.createVault ()
 			*/
 			
 			//Update the config object merging "argv" with "web"
-			this.set ("web", this.merge (web, argv));
+			this.merge (web, argv);
 			
 			console.log (this.get ());
 			
