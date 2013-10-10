@@ -94,7 +94,14 @@ seraphim.createVault ()
     .load (...);
 ```
 
-The `load()` function enqueues a task but it actually doesn't execute it. These tasks are asynchronous and they are executed in subsequent loop ticks in the same order they are enqueued, one task per tick.
+The `load()` function enqueues a task but it actually doesn't execute it. These tasks are asynchronous and they are executed in subsequent loop ticks in the same order they are enqueued, one task per tick. Therefore, at the end of the current tick the length of the queue is known so there's no need to execute a _"ok, I don't want to enqueue any more tasks, begin with the
+load"_ function:
+
+```javascript
+.load (...)
+.load (...)
+.begin () //This is not needed
+```
 
 ---
 

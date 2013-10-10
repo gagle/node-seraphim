@@ -37,7 +37,7 @@ queue is empty and doesn't have any pending tasks.
 
 This is possible because each task is executed on subsequent loop ticks, the
 total number of pending tasks are known at the end of the current tick. There's
-no need to call a "ok, I don't want to enqueue any more files, begin with the
+no need to call a "ok, I don't want to enqueue any more tasks, begin with the
 load" function:
 
 .load (...)
