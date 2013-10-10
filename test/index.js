@@ -88,13 +88,15 @@ var tests = {
 				cb ();
 				return;
 			};
-			
-			vault.load (this.set ("a", this.get ("a") + 1));
+      
+      process.nextTick (function (){
+        vault.load ({ a: i });
+      });
 		});
 		
 		var i = 0;
 				
-		vault.load ({ a: i })
+		vault.load ({ a: i });
 	},
 	"error on not found extensions": function (cb){
 		var vault = seraphim.createVault ();
