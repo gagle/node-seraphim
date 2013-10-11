@@ -104,6 +104,8 @@ The `load()` function enqueues a task but it actually doesn't execute it. These 
 
 This is possible thanks to the [deferred-queue](https://github.com/gagle/node-deferred-queue) module, a very fast control flow library.
 
+The objects loaded by [load()](#load) are merged from bottom to top.
+
 ---
 
 <a name="createVault"></a>
@@ -151,12 +153,12 @@ Allows you to load files with an extension different from .json using the [load(
 <a name="get"></a>
 __Seraphim#get() : Object__
 
-Returns the object with all the data.
+Returns the internal object with all the data that has been merged.
 
 <a name="load"></a>
 __Seraphim#load(resource[, onLoad]) : Seraphim__
 
-Loads and merges a resource. It can be a string, object or function.
+Loads and merges a resource. `resource` can be a string, object or function.
 
 __String__
 
@@ -205,5 +207,10 @@ Asynchronous. The first parameter is the error, the second is the object.
 <a name="merge"></a>
 __Seraphim#merge(o1[, o2]) : undefined | Object__
 
-If `o2` is not used, `o1` is merged qith the internal object.
+If `o2` is not used, `o1` is merged with the internal object.  
 If `o2` is used, `o2` is merged with `o1` and `o1` is returned.
+
+```javascript
+console.log (vault.merge ({ a: 1, b: 1 }, { a: 2 }));
+//{ a: 2, b: 1 }
+```
