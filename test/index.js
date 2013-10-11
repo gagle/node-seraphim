@@ -18,7 +18,7 @@ var tests = {
 		});
 
 		vault.on ("error", function (error){
-			assert.fail (error.message);
+			assert.ifError (error);
 		});
 
 		vault.on ("end", function (){
@@ -77,7 +77,7 @@ var tests = {
 		var vault = seraphim.createVault ();
 		
 		vault.on ("error", function (error){
-			assert.fail (error.message);
+			assert.ifError (error);
 		});
 
 		vault.on ("end", function (){
@@ -88,14 +88,14 @@ var tests = {
 				cb ();
 				return;
 			};
-      
-      process.nextTick (function (){
-        vault.load ({ a: i });
-      });
+			
+			process.nextTick (function (){
+				vault.load ({ a: i });
+			});
 		});
 		
 		var i = 0;
-				
+		
 		vault.load ({ a: i });
 	},
 	"error on not found extensions": function (cb){
@@ -116,7 +116,7 @@ var tests = {
 		
 		vault
 				.on ("error", function (error){
-					assert.fail (error.message);
+					assert.ifError (error);
 				})
 				.on ("end", function (){
 					assert.deepEqual (this.get (), {});

@@ -40,7 +40,7 @@ vault
 		.load ("a.json")
 		.load ("b.properties")
 		.load (function (){
-			var a = vault.get ("a");
+			var a = vault.get ().a;
 			a.b = argv.b !== undefined ? argv.b : a.b;
 			a.c = argv.c !== undefined ? argv.c : a.c;
 		});

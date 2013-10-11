@@ -9,7 +9,7 @@ Version: 0.0.0
 
 Loading files in Node.js have always been a very tedious task, especially when you need to load files asynchronously or from external sources like a database, redis, etc., read the cli options and the environment variables and, finally, merge all of them in a single or multiple objects for your ease.
 
-This module brings to you a powerful api for managing your configuration data.
+This module brings to you a powerful api for managing in a few lines your configuration data.
 
 ```javascript
 var seraphim = require ("../lib");
@@ -33,32 +33,32 @@ seraphim.createVault ()
       }
       */
     })
-    /*
-    Default settings
-    default.json
-    {
-      "web": {
-        "log": {
-          "type": "circular",
-          "backup": "1week"
-        }
-      }
-    }
-    */
-    .load ("a.json")
-    /*
-    NODE_ENV settings
-    development.json
-    {
-      "web": {
-        "hostname": "1.2.3.4",
-        "port": 1234
-      }
-    }
-    */
-    .load ("b.json")
+    //Default settings
+    .load ("default.json")
+    //NODE_ENV (development) settings
+    .load (process.env.NODE_ENV + ".json")
     //Override/merge the previous settings with any object, eg: cli options
     .load ({ web: { hostname: "a.b.c" } });
+```
+```
+//default.json
+{
+  "web": {
+    "log": {
+      "type": "circular",
+      "backup": "1week"
+    }
+  }
+}
+```
+```
+//production.json
+{
+  "web": {
+    "hostname": "1.2.3.4",
+    "port": 1234
+  }
+}
 ```
 
 #### Installation ####
@@ -94,8 +94,7 @@ seraphim.createVault ()
     .load (...);
 ```
 
-The `load()` function enqueues a task but it actually doesn't execute it. These tasks are asynchronous and they are executed in subsequent loop ticks in the same order they are enqueued, one task per tick. Therefore, at the end of the current tick the length of the queue is known so there's no need to execute a _"ok, I don't want to enqueue any more tasks, begin with the
-load"_ function:
+The `load()` function enqueues a task but it actually doesn't execute it. These tasks are asynchronous and they are executed in subsequent loop ticks in the same order they are enqueued, one task per tick. Therefore, at the end of the current tick the length of the queue is known so there's no need to execute a _"ok, I don't want to enqueue any more tasks, begin with the load"_ function:
 
 ```javascript
 .load (...)
@@ -103,9 +102,11 @@ load"_ function:
 .begin () //This is not needed
 ```
 
+This is possible thanks to the [deferred-queue](https://github.com/gagle/node-deferred-queue) module, a very fast control flow library.
+
 ---
 
-<a name="createvault"></a>
+<a name="createVault"></a>
 ___module_.createVault([options]) : Seraphim__
 
 Returns a new [Seraphim](#seraphim_object) instance.

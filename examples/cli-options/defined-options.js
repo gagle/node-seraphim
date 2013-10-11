@@ -21,7 +21,7 @@ seraphim.createVault ()
 		.on ("end", function (){
 			//The cli options are read after the config files because they need a
 			//default value
-			var web = this.get ("web");
+			var web = this.get ().web;
 			
 			var argv = require ("argp")
 				.body ()

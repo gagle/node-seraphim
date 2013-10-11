@@ -8,7 +8,7 @@ var seraphim = require ("../../lib");
 
 seraphim.createVault ()
 		.on ("error", function (error){
-			console.error ("error");
+			console.error (error);
 		})
 		.on ("end", function (){
 			console.log (this.get ());
@@ -48,6 +48,6 @@ seraphim.createVault ()
 			process.nextTick (function (){
 				me.merge (o);
 				//The first parameter is the error
-				cb (null);
+				cb ();
 			});
 		});
