@@ -5,7 +5,7 @@ var assert = require ("assert");
 var properties = require ("properties");
 
 var tests = {
-	"basic usage": function (cb){
+	"basic usage": function (done){
 		var propertiesOptions = {
 			path: true,
 			namespaces: true
@@ -31,7 +31,7 @@ var tests = {
 				y: 1,
 				z: 1
 			});
-			cb ();
+			done ();
 		});
 				
 		vault
@@ -73,7 +73,7 @@ var tests = {
 				//Custom extension
 				.load ("b.properties");
 	},
-	"multiple end events": function (cb){
+	"multiple end events": function (done){
 		var vault = seraphim.createVault ();
 		
 		vault.on ("error", function (error){
@@ -85,7 +85,7 @@ var tests = {
 				assert.deepEqual (this.get (), {
 					a: 3
 				});
-				cb ();
+				done ();
 				return;
 			};
 			
@@ -98,20 +98,20 @@ var tests = {
 		
 		vault.load ({ a: i });
 	},
-	"error on not found extensions": function (cb){
+	"error on not found extensions": function (done){
 		var vault = seraphim.createVault ();
 		
 		vault
 				.on ("error", function (error){
 					assert.ok (error);
-					cb ();
+					done ();
 				})
 				.on ("end", function (){
 					assert.fail ();
 				})
 				.load ("foo.bar");
 	},
-	"ignore not found extensions": function (cb){
+	"ignore not found extensions": function (done){
 		var vault = seraphim.createVault ({ extensionError: false });
 		
 		vault
@@ -120,19 +120,19 @@ var tests = {
 				})
 				.on ("end", function (){
 					assert.deepEqual (this.get (), {});
-					cb ();
+					done ();
 				})
 				.load ("foo.bar", function (o){
 					assert.ok (!o);
 				});
 	},
-	"error on onLoad callback": function (cb){
+	"error on onLoad callback": function (done){
 		var vault = seraphim.createVault ();
 		
 		vault
 				.on ("error", function (error){
 					assert.ok (error);
-					cb ();
+					done ();
 				})
 				.on ("end", function (){
 					assert.fail ();

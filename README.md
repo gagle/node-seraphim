@@ -5,7 +5,7 @@ _Node.js project_
 
 #### Configuration loader ####
 
-Version: 0.0.0
+Version: 0.0.1
 
 Loading files in Node.js have always been a very tedious task, especially when you need to load files asynchronously or from external sources like a database, redis, etc., read the cli options and the environment variables and, finally, merge all of them in a single or multiple objects for your ease.
 
@@ -102,7 +102,7 @@ The `load()` function enqueues a task but it actually doesn't execute it. These 
 .begin () //This is not needed
 ```
 
-This is possible thanks to the [deferred-queue](https://github.com/gagle/node-deferred-queue) module, a very fast control flow library.
+This is possible thanks to the [deferred-queue](https://github.com/gagle/node-deferred-queue) module, a very fast series control flow library.
 
 The objects loaded by [load()](#load) are merged from bottom to top.
 
@@ -137,7 +137,7 @@ Allows you to load files with an extension different from .json using the [load(
 
 `extension` is a string or an array or strings.
 
-`fn` has two parameters: the path of the file and the function to call when it finishes. This function receives two parameters: the error and object with the data.
+`fn` is the function that is called when the file to load has the same `extension`. It takes two parameters: the path of the file and a callback. This callback receives two parameters: the error and an object with the data.
 
 ```javascript
 .extension (".properties", function (p, cb){
@@ -153,7 +153,7 @@ Allows you to load files with an extension different from .json using the [load(
 <a name="get"></a>
 __Seraphim#get() : Object__
 
-Returns the internal object with all the data that has been merged.
+Returns the internal object with all the data that has been merged into it.
 
 <a name="load"></a>
 __Seraphim#load(resource[, onLoad]) : Seraphim__
@@ -176,7 +176,7 @@ __Object__
 
 __Function__
 
-Synchronous. Return an object to be merged. Errors thrown here are catched.
+Synchronous. Return the object to be merged. Errors thrown here are catched and forwarded to the `error` event.
 
 ```javascript
 .load (function (){
@@ -194,13 +194,18 @@ Asynchronous. The first parameter is the error, the second is the object.
 });
 ```
 
-`onLoad` is a callback that is executed when `load` finishes. It has two parameters: the object and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly.
+`onLoad` is a callback that is executed when `load()` finishes. It takes two parameters: the object and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly.
 
 ```javascript
 .load ("file.json", function (o, cb){
   //o is the json data
   //The first parameter of cb is a possible error
-  process.nextTick (cb);
+  var me = this;
+  foo (function (error){
+    if (error) return cb (error);
+    me.merge (o);
+    cb ();
+  });
 });
 ```
 
