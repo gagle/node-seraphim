@@ -47,7 +47,7 @@ var tests = {
 				.load (function (){
 					return { a: { b: 3 }, y: 1 };
 				})
-				//Synchronous function using the callback
+				//Fake asynchronous function (synchronous)
 				.load (function (cb){
 					cb (null, { a: { b: 4 }, z: 1 });
 				})

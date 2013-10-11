@@ -69,7 +69,7 @@ npm install seraphim
 
 #### Documentation ####
 
-- [How it works](#how)
+- [How it works?](#how)
 
 #### Functions ####
 
@@ -82,7 +82,7 @@ npm install seraphim
 ---
 
 <a name="how"></a>
-__How it works__
+__How it works?__
 
 ```javascript
 seraphim.createVault ()
@@ -121,3 +121,89 @@ Options are:
 <a name="seraphim_object"></a>
 __Seraphim__
 
+__Methods__
+
+- [Seraphim#extension(extension, fn) : Seraphim](#merge)
+- [Seraphim#get() : Object](#merge)
+- [Seraphim#load(resource[, onLoad]) : Seraphim](#load)
+- [Seraphim#merge(o1[, o2]) : undefined | Object](#merge)
+
+<a name="extension"></a>
+__Seraphim#extension(extension, fn) : Seraphim__
+
+Allows you to load files with an extension different from .json using the [load()](#load) function.
+
+`extension` is a string or an array or strings.
+
+`fn` has two parameters: the path of the file and the function to call when it finishes. This function receives two parameters: the error and object with the data.
+
+```javascript
+.extension (".properties", function (p, cb){
+  fs.readFile (p, { encoding: "utf8" }, function (error, data){
+    if (error) return cb (error);
+    var obj = parse (data);
+    cb (null, obj);
+  });
+})
+.load ("file.properties");
+```
+
+<a name="get"></a>
+__Seraphim#get() : Object__
+
+Returns the object with all the data.
+
+<a name="load"></a>
+__Seraphim#load(resource[, onLoad]) : Seraphim__
+
+Loads and merges a resource. It can be a string, object or function.
+
+__String__
+
+It must be a valid file path.
+
+```javascript
+.load ("file.json");
+```
+
+__Object__
+
+```javascript
+.load ({ a: { b: 1 } });
+```
+
+__Function__
+
+Synchronous. Return an object to be merged. Errors thrown here are catched.
+
+```javascript
+.load (function (){
+  return { a: 1 };
+});
+```
+
+Asynchronous. The first parameter is the error, the second is the object.
+
+```javascript
+.load (function (cb){
+  process.nextTick (function (){
+    cb (null, { a: 1 });
+  });
+});
+```
+
+`onLoad` is a callback that is executed when `load` finishes. It has two parameters: the object and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly.
+
+```javascript
+.load ("file.json", function (o, cb){
+  //o is the json data
+  //The first parameter of cb is a possible error
+  process.nextTick (cb);
+});
+```
+
+<a name="merge"></a>
+__Seraphim#merge(o1[, o2]) : undefined | Object__
+
+If `o2` is not used, `o1` is merged qith the internal object.
+If `o2` is used, `o2` is merged with `o1` and `o1` is returned.
