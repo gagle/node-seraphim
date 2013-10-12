@@ -7,6 +7,7 @@ rest.
 
 var fs = require ("fs");
 var properties = require ("properties");
+var yaml = require ("js-yaml");
 var seraphim = require ("../../lib");
 
 var loadConfigFiles = function (dir, cb){

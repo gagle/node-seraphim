@@ -140,14 +140,15 @@ Allows you to load files with an extension different from .json using the [load(
 `fn` is the function that is called when the file to load has the same `extension`. It takes two parameters: the path of the file and a callback. This callback receives two parameters: the error and an object with the data.
 
 ```javascript
-.extension (".properties", function (p, cb){
+.extension ([".yaml", ".yml"], function (p, cb){
   fs.readFile (p, { encoding: "utf8" }, function (error, data){
     if (error) return cb (error);
     var obj = parse (data);
     cb (null, obj);
   });
 })
-.load ("file.properties");
+.load ("file1.yaml")
+.load ("file2.yml");
 ```
 
 <a name="get"></a>
