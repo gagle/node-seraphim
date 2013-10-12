@@ -125,8 +125,8 @@ __Seraphim__
 
 __Methods__
 
-- [Seraphim#extension(extension, fn) : Seraphim](#merge)
-- [Seraphim#get() : Object](#merge)
+- [Seraphim#extension(extension, fn) : Seraphim](#extension)
+- [Seraphim#get() : Object](#get)
 - [Seraphim#load(resource[, onLoad]) : Seraphim](#load)
 - [Seraphim#merge(o1[, o2]) : undefined | Object](#merge)
 
