@@ -123,12 +123,31 @@ Options are:
 <a name="seraphim_object"></a>
 __Seraphim__
 
+__Events__
+
+- [end](#event_end)
+- [error](#event_error)
+
 __Methods__
 
 - [Seraphim#extension(extension, fn) : Seraphim](#extension)
 - [Seraphim#get() : Object](#get)
 - [Seraphim#load(resource[, onLoad]) : Seraphim](#load)
 - [Seraphim#merge(o1[, o2]) : undefined | Object](#merge)
+
+---
+
+<a name="event_end"></a>
+__end__
+
+This event is emitted multiple times, when there are no more pending resources to load. Look at the [end-event.js](https://github.com/gagle/node-seraphim/blob/master/examples/end-event.js) example for further details.
+
+<a name="event_error"></a>
+__error__
+
+Emitted when an error occurs.
+
+---
 
 <a name="extension"></a>
 __Seraphim#extension(extension, fn) : Seraphim__
