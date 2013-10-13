@@ -12,7 +12,7 @@ Loading files in Node.js have always been a very tedious task, especially when y
 This module brings to you a powerful api for managing in a few lines your configuration data.
 
 ```javascript
-var seraphim = require ("../lib");
+var seraphim = require ("seraphim");
 
 seraphim.createVault ()
     .on ("error", function (error){
@@ -137,7 +137,7 @@ Allows you to load files with an extension different from .json using the [load(
 
 `extension` is a string or an array or strings.
 
-`fn` is the function that is called when the file to load has the same `extension`. It takes two parameters: the path of the file and a callback. This callback receives two parameters: the error and an object with the data.
+`fn` is the function that is called when the file to load has the same `extension`. It takes two parameters: the path of the file and a callback. The callback must be called with two parameters: the error and the object with the data.
 
 ```javascript
 .extension ([".yaml", ".yml"], function (p, cb){
@@ -185,7 +185,7 @@ Synchronous. Return the object to be merged. Errors thrown here are catched and 
 });
 ```
 
-Asynchronous. The first parameter is the error, the second is the object.
+Asynchronous. Use the callback to continue with the next resource. The first parameter is the error, the second is the object to merge.
 
 ```javascript
 .load (function (cb){
@@ -195,14 +195,14 @@ Asynchronous. The first parameter is the error, the second is the object.
 });
 ```
 
-`onLoad` is a callback that is executed when `load()` finishes. It takes two parameters: the object and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly.
+`onLoad` is a callback that is executed when `load()` finishes. It takes two parameters: the object to merge and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly.
 
 ```javascript
 .load ("file.json", function (o, cb){
   //o is the json data
-  //The first parameter of cb is a possible error
   var me = this;
   foo (function (error){
+    //The error is forwarded to the "end" event
     if (error) return cb (error);
     me.merge (o);
     cb ();
