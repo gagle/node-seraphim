@@ -1,2 +1,6 @@
+v0.0.2 (14 Oct 2013)
+	Errors thrown inside the "onLoad" callback are try-catched and redirected to
+		the "error" event.
+
 v0.0.1 (11 Oct 2013)
 	First release.
