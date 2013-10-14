@@ -24,19 +24,19 @@ seraphim.createVault ()
 			var web = this.get ().web;
 			
 			var argv = require ("argp")
-				.body ()
-						.option ({
-							long: "hostname",
-							metavar: "HOST",
-							default: web.hostname
-						})
-						.option ({
-							long: "port",
-							metavar: "PORT",
-							default: web.port,
-							type: Number
-						})
-				.argv ();
+					.body ()
+							.option ({
+								long: "hostname",
+								metavar: "HOST",
+								default: web.hostname
+							})
+							.option ({
+								long: "port",
+								metavar: "PORT",
+								default: web.port,
+								type: Number
+							})
+					.argv ();
 			
 			console.log (argv);
 			
