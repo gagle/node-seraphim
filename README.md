@@ -214,7 +214,7 @@ Asynchronous. Use the callback to continue with the next resource. The first par
 });
 ```
 
-`onLoad` is a callback that is executed when `load()` finishes. It takes two parameters: the object to merge and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly.
+`onLoad` is a callback that is executed when `load()` finishes. It takes two parameters: the object to merge and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly. This callback doesn't catch the errors, so if you need to do a synchronous operation that can throw an error, catch it and use the `cb` parameter to return the error and the result.
 
 ```javascript
 .load ("file.json", function (o, cb){
