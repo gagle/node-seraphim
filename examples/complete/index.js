@@ -70,7 +70,7 @@ var loadConfig = function (cb){
 };
 
 loadConfig (function (error, config){
-	if (error) return console.error (error.stack);
+	if (error) return console.error (error);
 	
 	console.log (config);
 	
