@@ -20,7 +20,8 @@ seraphim.createVault ()
 		})
 		.on ("end", function (){
 			//The cli options are read after the config files because they need a
-			//default value
+			//default value. You can also ignore the default value property and
+			//configure it like in the "complete" example
 			var web = this.get ().web;
 			
 			var argv = require ("argp")

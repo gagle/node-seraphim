@@ -5,7 +5,7 @@ _Node.js project_
 
 #### Configuration loader ####
 
-Version: 0.0.2
+Version: 0.0.3
 
 Loading files in Node.js have always been a very tedious task, especially when you need to load files asynchronously or from external sources like a database, redis, etc., read the cli options and the environment variables and, finally, merge all of them in a single or multiple objects for your ease.
 
@@ -103,8 +103,6 @@ The `load()` function enqueues a task but it actually doesn't execute it. These 
 ```
 
 This is possible thanks to the [deferred-queue](https://github.com/gagle/node-deferred-queue) module, a very fast series control flow library.
-
-The objects loaded by [load()](#load) are merged from bottom to top.
 
 ---
 

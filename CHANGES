@@ -1,3 +1,6 @@
+v0.0.3 (15 Oct 2013)
+	"this" is now available when the resource is a function.
+
 v0.0.2 (14 Oct 2013)
 	Errors thrown inside the "onLoad" callback are try-catched and redirected to
 		the "error" event.
