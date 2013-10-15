@@ -61,6 +61,8 @@ seraphim.createVault ()
 }
 ```
 
+Check this [complete example](https://github.com/gagle/node-seraphim/tree/master/examples/complete) for further details.
+
 #### Installation ####
 
 ```
