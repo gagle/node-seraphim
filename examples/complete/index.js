@@ -15,24 +15,26 @@ process.env.DATABASE_PORT = "1337";
 //Fake argv
 process.argv = ["node", __filename, "--db-port", "1338"];
 
+//Configure CLI options
+//The "argp" module prints a nice help message. Modify the previous fake argv
+//and add the "-h" option to see it in action
+var argv = require ("argp")
+		.body ()
+				.option ({
+					long: "db-hostname",
+					metavar: "HOST"
+				})
+				.option ({
+					long: "db-port",
+					metavar: "PORT",
+					type: Number
+				})
+				.help ()
+		.argv ();
+
 var seraphim = require ("../../lib");
 
-var loadConfig = function (cb){
-	//Configure CLI options
-	var argv = require ("argp")
-			.body ()
-					.option ({
-						long: "db-hostname",
-						metavar: "HOST"
-					})
-					.option ({
-						long: "db-port",
-						metavar: "PORT",
-						type: Number
-					})
-					.help ()
-			.argv ();
-	
+var loadConfig = function (argv, cb){
 	var envConfigFile;
 	if (process.env.NODE_ENV === "production"){
 		envConfigFile = "production.json";
@@ -69,9 +71,10 @@ var loadConfig = function (cb){
 			})
 };
 
-loadConfig (function (error, config){
+loadConfig (argv, function (error, config){
 	if (error) return console.error (error);
 	
+	argv = null;
 	console.log (config);
 	
 	/*
