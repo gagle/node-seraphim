@@ -22,7 +22,7 @@ seraphim.createVault ()
 			}, 1000);
 		})
 		.load ({ x: 0 })
-		.load ({ x10: 0 })
+		.load ({ x10: 0 });
 
 /*
 0 0
