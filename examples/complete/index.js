@@ -68,7 +68,7 @@ var loadConfig = function (argv, cb){
 				var o = this.get ();
 				if (argv["db-hostname"]) o.database.hostname = argv["db-hostname"];
 				if (argv["db-port"]) o.database.port = argv["db-port"];
-			})
+			});
 };
 
 loadConfig (argv, function (error, config){
