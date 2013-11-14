@@ -221,7 +221,7 @@ Asynchronous. Use the callback to continue with the next resource. The first par
   //o is the json data
   var me = this;
   foo (function (error){
-    //The error is forwarded to the "end" event
+    //The error is forwarded to the "error" event
     if (error) return cb (error);
     me.merge (o);
     cb ();
