@@ -5,7 +5,8 @@ _Node.js project_
 
 #### Configuration loader ####
 
-Version: 0.0.4
+[![NPM version](https://badge.fury.io/js/seraphim.png)](http://badge.fury.io/js/seraphim "Fury Version Badge")
+[![Build Status](https://secure.travis-ci.org/gagle/node-seraphim.png)](http://travis-ci.org/gagle/node-seraphim "Travis CI Badge")
 
 Loading files in Node.js have always been a very tedious task, especially when you need to load files asynchronously or from external sources like a database, redis, etc., read the cli options and the environment variables and, finally, merge all of them in a single or multiple objects for your ease.
 

@@ -18,6 +18,9 @@
 		"js-yaml": "*",
 		"properties": "*"
 	},
+	"scripts": {
+		"test": "node test/index"
+	},
 	"license": "MIT",
 	"main": "lib"
 }

@@ -63,7 +63,7 @@ var tests = {
 					process.nextTick (cb);
 				})
 				//json file
-				.load ("a.json", function (o){
+				.load (__dirname + "/a.json", function (o){
 					assert.deepEqual (o, {
 						a: {
 							c: 1
@@ -71,7 +71,7 @@ var tests = {
 					});
 				})
 				//Custom extension
-				.load ("b.properties");
+				.load (__dirname + "/b.properties");
 	},
 	"multiple end events": function (done){
 		var vault = seraphim.createVault ();
