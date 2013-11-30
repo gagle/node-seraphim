@@ -10,8 +10,7 @@
 		"node": ">=0.10"
 	},
 	"dependencies": {
-		"deferred-queue": "*",
-		"error-maker": "*"
+		"deferred-queue": "*"
 	},
 	"devDependencies": {
 		"argp": "*",
