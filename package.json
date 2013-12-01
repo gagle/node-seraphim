@@ -10,7 +10,7 @@
 		"node": ">=0.10"
 	},
 	"dependencies": {
-		"deferred-queue": "*"
+		"deferred-queue": "0.5.x"
 	},
 	"devDependencies": {
 		"argp": "*",
