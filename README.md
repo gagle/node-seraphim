@@ -1,13 +1,13 @@
 seraphim
 ========
 
-_Node.js project_
-
 #### Configuration loader ####
 
 [![NPM version](https://badge.fury.io/js/seraphim.png)](http://badge.fury.io/js/seraphim "Fury Version Badge")
 [![Build Status](https://secure.travis-ci.org/gagle/node-seraphim.png)](http://travis-ci.org/gagle/node-seraphim "Travis CI Badge")
 [![Dependency Status](https://david-dm.org/gagle/node-seraphim.png)](https://david-dm.org/gagle/node-seraphim "David Dependency Manager Badge")
+
+[![NPM installation](https://nodei.co/npm/seraphim.png?mini=true)](https://nodei.co/npm/seraphim "NodeICO Badge")
 
 Loading files in Node.js have always been a very tedious task, especially when you need to load files asynchronously or from external sources like a database, redis, etc., read the cli options and the environment variables and, finally, merge all of them in a single or multiple objects for your ease.
 
@@ -64,12 +64,6 @@ seraphim.createVault ()
 ```
 
 Check this [complete example](https://github.com/gagle/node-seraphim/tree/master/examples/complete) for further details.
-
-#### Installation ####
-
-```
-npm install seraphim
-```
 
 #### Documentation ####
 
