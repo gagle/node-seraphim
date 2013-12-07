@@ -1,25 +1,25 @@
 {
-	"name": "seraphim",
-	"version": "0.0.4",
-	"description": "Configuration loader",
-	"keywords": ["configuration", "file", "environment", "cli", "object",
-			"merge"],
-	"author": "Gabriel Llamas <gagle@outlook.com>",
-	"repository": "git://github.com/gagle/node-seraphim.git",
-	"engines": {
-		"node": ">=0.10"
-	},
-	"dependencies": {
-		"deferred-queue": "0.5.x"
-	},
-	"devDependencies": {
-		"argp": "*",
-		"js-yaml": "*",
-		"properties": "*"
-	},
-	"scripts": {
-		"test": "node test/index"
-	},
-	"license": "MIT",
-	"main": "lib"
+  "name": "seraphim",
+  "version": "0.0.4",
+  "description": "Configuration loader",
+  "keywords": ["configuration", "file", "environment", "cli", "object",
+      "merge"],
+  "author": "Gabriel Llamas <gagle@outlook.com>",
+  "repository": "git://github.com/gagle/node-seraphim.git",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "deferred-queue": "0.5.x"
+  },
+  "devDependencies": {
+    "argp": "*",
+    "js-yaml": "*",
+    "properties": "*"
+  },
+  "scripts": {
+    "test": "node test/index"
+  },
+  "license": "MIT",
+  "main": "lib"
 }
