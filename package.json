@@ -3,7 +3,7 @@
   "version": "0.0.4",
   "description": "Configuration loader",
   "keywords": ["configuration", "file", "environment", "cli", "object",
-      "merge"],
+      "merge", "cascade"],
   "author": "Gabriel Llamas <gagle@outlook.com>",
   "repository": "git://github.com/gagle/node-seraphim.git",
   "engines": {
