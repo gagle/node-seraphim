@@ -30,15 +30,13 @@ var loadConfigFiles = function (dir, cb){
           cb (null, config);
         })
         .extension (".ini", function (file, cb){
-          fs.readFile (file, { encoding: "utf8" }, function (error, data){
-            if (error) return cb (error);
-            cb (null, properties.parse (data, {
-              sections: true,
-              comments: ";",
-              separators: "=",
-              strict: true
-            }));
-          });
+          properties.parse (file, {
+            path: true,
+            sections: true,
+            comments: ";",
+            separators: "=",
+            strict: true
+          }, cb);
         })
         .extension ([".yaml", ".yml"], function (file, cb){
           fs.readFile (file, { encoding: "utf8" }, function (error, data){
