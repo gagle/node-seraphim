@@ -1,6 +1,6 @@
 {
   "name": "seraphim",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Configuration loader",
   "keywords": ["configuration", "file", "environment", "cli", "object",
       "merge", "cascade"],

@@ -1,12 +1,15 @@
+v0.1.0 (06 Feb 2014)
+  The "end" event now returns as a parameter the final merged object.
+
 v0.0.4 (16 Oct 2013)
-	Speed improvement.
+  Speed improvement.
 
 v0.0.3 (15 Oct 2013)
-	"this" is now available when the resource is a function.
+  "this" is now available when the resource is a function.
 
 v0.0.2 (14 Oct 2013)
-	Errors thrown inside the "onLoad" callback are try-catched and redirected to
-		the "error" event.
+  Errors thrown inside the "onLoad" callback are try-catched and redirected to
+    the "error" event.
 
 v0.0.1 (11 Oct 2013)
-	First release.
+  First release.

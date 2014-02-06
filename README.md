@@ -9,9 +9,9 @@ seraphim
 
 [![NPM installation](https://nodei.co/npm/seraphim.png?mini=true)](https://nodei.co/npm/seraphim "NodeICO Badge")
 
-Loading files in Node.js have always been a very tedious task, especially when you need to load files asynchronously or from external sources like a database, redis, etc., read the cli options and the environment variables and, finally, merge all of them in a single or multiple objects for your ease.
+Loading configuration files in Node.js have always been a very tedious task, especially when you need to merge objects in cascade, load files asynchronously, load data from external sources like a database, redis, etc., read the CLI options and the environment variables, etc.
 
-This module brings to you a powerful api for managing in a few lines your configuration data.
+This module brings to you a powerful API for loading and merging your configuration data in a few lines.
 
 ```javascript
 var seraphim = require ("seraphim");
@@ -20,8 +20,8 @@ seraphim.createVault ()
     .on ("error", function (error){
       console.error (error);
     })
-    .on ("end", function (){
-      console.log (this.get ());
+    .on ("end", function (config){
+      console.log (config);
       /*
       {
         web: {
@@ -39,9 +39,10 @@ seraphim.createVault ()
     .load ("default.json")
     //NODE_ENV (development) settings
     .load (process.env.NODE_ENV + ".json")
-    //Override/merge the previous settings with any object, eg: cli options
+    //Override/merge the previous settings with any object, eg: CLI options
     .load ({ web: { hostname: "a.b.c" } });
 ```
+
 ```
 //default.json
 {
@@ -53,6 +54,7 @@ seraphim.createVault ()
   }
 }
 ```
+
 ```
 //development.json
 {
@@ -65,10 +67,6 @@ seraphim.createVault ()
 
 Check this [complete example](https://github.com/gagle/node-seraphim/tree/master/examples/complete) for further details.
 
-#### Documentation ####
-
-- [How it works?](#how)
-
 #### Functions ####
 
 - [_module_.createVault([options]) : Seraphim](#createVault)
@@ -76,31 +74,6 @@ Check this [complete example](https://github.com/gagle/node-seraphim/tree/master
 #### Objects ####
 
 - [Seraphim](#seraphim_object)
-
----
-
-<a name="how"></a>
-__How it works?__
-
-```javascript
-seraphim.createVault ()
-    .on ("error", ...)
-    .on ("end", ...)
-    .load (...)
-    .load (...)
-    .load (...)
-    .load (...);
-```
-
-The `load()` function enqueues a task but it actually doesn't execute it. These tasks are asynchronous and they are executed in subsequent loop ticks in the same order they are enqueued, one task per tick. Therefore, at the end of the current tick the number of pending tasks is known so there's no need to execute a _"ok, I don't want to enqueue any more tasks, begin with the loading"_ function:
-
-```javascript
-.load (...)
-.load (...)
-.begin () //This is not needed
-```
-
-This is possible thanks to the [deferred-queue](https://github.com/gagle/node-deferred-queue) module, a very fast series control flow library.
 
 ---
 
@@ -136,10 +109,18 @@ __Methods__
 <a name="event_end"></a>
 __end__
 
-This event is emitted multiple times, when there are no more pending resources to load. Look at the [end-event.js](https://github.com/gagle/node-seraphim/blob/master/examples/end-event.js) example for further details.
+Arguments: `config`.
+
+This event is emitted multiple times, when there are no more pending tasks to load.
+
+`config` is the final merged object.
+
+Look at the [end-event.js](https://github.com/gagle/node-seraphim/blob/master/examples/end-event.js) example for further details.
 
 <a name="event_error"></a>
 __error__
+
+Arguments: `error`.
 
 Emitted when an error occurs.
 
@@ -150,26 +131,33 @@ __Seraphim#extension(extension, fn) : Seraphim__
 
 Allows you to load files with an extension different from .json using the [load()](#load) function.
 
-`extension` is a string or an array or strings.
+`extension` is a string or an array of strings.
 
-`fn` is the function that is called when the file to load has the same `extension`. It takes two parameters: the path of the file and a callback. The callback must be called with two parameters: the error and the object with the data.
+`fn` is the function that is called when the file to load has the same `extension`. It has two arguments: the path of the file and a callback. The callback must be called with two parameters: the error and the object with the configuration data.
 
 ```javascript
-.extension ([".yaml", ".yml"], function (p, cb){
-  fs.readFile (p, { encoding: "utf8" }, function (error, data){
-    if (error) return cb (error);
-    var obj = parse (data);
-    cb (null, obj);
-  });
-})
-.load ("file1.yaml")
-.load ("file2.yml");
+seraphim.createVault ()
+    .on ("error", function (error){
+      console.error (error);
+    })
+    .on ("end", function (config){
+      ...
+    })
+    .extension ([".yaml", ".yml"], function (p, cb){
+      fs.readFile (p, { encoding: "utf8" }, function (error, data){
+        if (error) return cb (error);
+        var obj = parseFile (data);
+        cb (null, obj);
+      });
+    })
+    .load ("file1.yaml")
+    .load ("file2.yml");
 ```
 
 <a name="get"></a>
 __Seraphim#get() : Object__
 
-Returns the internal object with all the data that has been merged into it.
+Returns the internal merged object.
 
 <a name="load"></a>
 __Seraphim#load(resource[, onLoad]) : Seraphim__
@@ -192,15 +180,17 @@ __Object__
 
 __Function__
 
-Synchronous. Return the object to be merged. Errors thrown here are catched and forwarded to the `error` event.
+Synchronous. Return the object to be merged. Errors thrown here are catched and forwarded to the `error` event. If a falsy value is returned (null, undefined, false, etc.) it won't be merged.
 
 ```javascript
 .load (function (){
-  return { a: 1 };
+  if (condition){
+    return { a: 1 };
+  }
 });
 ```
 
-Asynchronous. Use the callback to continue with the next resource. The first parameter is the error, the second is the object to merge.
+Asynchronous. Use the callback to load the next resource. The first parameter is the error, the second is the object to be merged.
 
 ```javascript
 .load (function (cb){
@@ -210,20 +200,23 @@ Asynchronous. Use the callback to continue with the next resource. The first par
 });
 ```
 
-`onLoad` is a callback that is executed when `load()` finishes. It takes two parameters: the object to merge and a callback. The callback allows you to execute any asynchronous function between two calls to `load()`. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly. This callback it's also try-catched, errors thrown inside this callback are redirected to the `error` event.
+`onLoad` is a callback that is executed when `load()` finishes. It has two arguments: the object to be merged and a callback. The callback allows you to execute any asynchronous function between two `load()` calls. Please note that if you use the `onLoad` callback the object is not merged automatically and you'll need to merge it explicitly. This callback it's also try-catched, errors thrown inside the `onLoad` callback are redirected to the `error` event.
 
 ```javascript
 .load ("file.json", function (o, cb){
-  //o is the json data
+  //'o' is the json object
   var me = this;
-  foo (function (error){
+  asyncFn (function (error, foo){
     //The error is forwarded to the "error" event
     if (error) return cb (error);
+    if (foo) o.bar = "baz";
     me.merge (o);
     cb ();
   });
 });
 ```
+
+The `onLoad` function can be used to [load files without an extension](https://github.com/gagle/node-seraphim/tree/master/examples/load-files-without-extension).
 
 <a name="merge"></a>
 __Seraphim#merge(o1[, o2]) : undefined | Object__

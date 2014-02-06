@@ -1,6 +1,0 @@
-{
-	"log": {
-		"type": "circular",
-		"backup": "1week"
-	}
-}

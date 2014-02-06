@@ -21,8 +21,8 @@ var tests = {
       assert.ifError (error);
     });
 
-    vault.on ("end", function (){
-      assert.deepEqual (this.get (), {
+    vault.on ("end", function (config){
+      assert.deepEqual (config, {
         a: {
           b: 5,
           c: 2
@@ -80,9 +80,9 @@ var tests = {
       assert.ifError (error);
     });
 
-    vault.on ("end", function (){
+    vault.on ("end", function (config){
       if (i++ === 3){
-        assert.deepEqual (this.get (), {
+        assert.deepEqual (config, {
           a: 3
         });
         done ();
